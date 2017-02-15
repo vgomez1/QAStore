@@ -13,16 +13,20 @@ public class AppTest
 {
 	private WebDriver driver = null;
 	
-	@Test
-	public void RegisterNewUser(){
+	@BeforeTest
+	public void OpenBrowser(){
 		System.setProperty("webdriver.chrome.driver", "C:\\workspaceV\\Libraries\\chromedriver_win32\\chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
+        driver = new ChromeDriver();
         driver.get("https://qastore.steelcase.com/");
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
 		
 		System.out.println("Opening Browser...");
         System.out.println("Looking for LOGIN button...");
+	}
+	@Test
+	public void RegisterNewUser(){
+		
         
         driver.findElement(By.partialLinkText("REGISTER")).click();
         System.out.println("Clicking Login/Register...");
@@ -40,6 +44,11 @@ public class AppTest
         else{
         	System.out.println("\nCouldn't find registration page :(");
         }
-        driver.quit();
+       
 	}
+	@AfterTest
+	public void CloseBrowser(){
+		 driver.quit();
+	}
+	
 }
